@@ -1,8 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8f3e6;
+  --foreground: #59331f;
+  --accent-red: #d05a45;
+  --accent-green: #526e3c;
+  --accent-yellow: #d8b967;
+  --accent-blue: #2a4654;
+  --card-bg: #fffaf0;
+  --card-border: #e0d4b8;
 }
 
 @theme inline {
@@ -14,8 +20,14 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #352b25;
+    --foreground: #f1e6d6;
+    --accent-red: #e57b68;
+    --accent-green: #7a9e60;
+    --accent-yellow: #e6cb83;
+    --accent-blue: #5a8196;
+    --card-bg: #403832;
+    --card-border: #5a4d43;
   }
 }
 
@@ -23,4 +35,48 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* 和風スタイルの追加クラス */
+.washi-pattern {
+  background-color: var(--card-bg);
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='rgba(0,0,0,.03)' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.retro-button {
+  background-color: var(--accent-red);
+  color: white;
+  border: 2px solid #c0482f;
+  box-shadow: 0 4px 0 #a03b27;
+  transform: translateY(0);
+  transition: all 0.1s;
+}
+
+.retro-button:hover {
+  background-color: #e06e59;
+}
+
+.retro-button:active {
+  box-shadow: 0 2px 0 #a03b27;
+  transform: translateY(2px);
+}
+
+.retro-button-secondary {
+  background-color: var(--accent-blue);
+  border: 2px solid #1f3440;
+  box-shadow: 0 4px 0 #19282f;
+}
+
+.retro-button-secondary:hover {
+  background-color: #3a5b6b;
+}
+
+.retro-button-secondary:active {
+  box-shadow: 0 2px 0 #19282f;
+}
+
+.japanese-border {
+  border: 1px solid var(--card-border);
+  border-radius: 0;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.1);
 }

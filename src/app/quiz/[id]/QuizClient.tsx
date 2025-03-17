@@ -19,11 +19,11 @@ export default function QuizClient({ quiz, quizId }: QuizClientProps) {
   if (!quiz) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen p-8">
-        <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full text-center">
-          <h1 className="text-2xl font-bold mb-4">クイズが見つかりません</h1>
+        <div className="washi-pattern japanese-border p-8 max-w-md w-full text-center">
+          <h1 className="text-2xl font-bold mb-4" style={{ fontFamily: '"HG行書体", "MS 明朝", serif' }}>クイズが見つかりません</h1>
           <Link 
             href="/"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors"
+            className="retro-button py-2 px-4 rounded-sm inline-block"
           >
             ホームに戻る
           </Link>
@@ -40,33 +40,35 @@ export default function QuizClient({ quiz, quizId }: QuizClientProps) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-8 bg-gray-50 dark:bg-gray-900">
-      <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full">
+    <div className="flex flex-col items-center justify-center min-h-screen p-8">
+      <div className="washi-pattern japanese-border p-8 max-w-md w-full">
         <Link 
           href="/"
-          className="inline-block mb-6 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+          className="inline-block mb-6 text-accent-blue hover:underline"
         >
           ← ホームに戻る
         </Link>
 
-        <h1 className="text-2xl font-bold mb-6 text-center">
+        <div className="w-16 h-1 bg-accent-red mx-auto mb-6"></div>
+        <h1 className="text-2xl font-bold mb-6 text-center" style={{ fontFamily: '"HG行書体", "MS 明朝", serif' }}>
           {mode === "organized" ? "整いました！" : "散らかりました！"}
         </h1>
+        <div className="w-16 h-1 bg-accent-red mx-auto mb-6"></div>
         
-        <div className="mb-8 p-6 bg-gray-100 dark:bg-gray-700 rounded-lg">
+        <div className="mb-8 p-6 bg-opacity-20 bg-accent-yellow japanese-border">
           {mode === "organized" ? (
             <>
-              <p className="text-lg mb-2">「{quiz.firstThing}」とかけまして</p>
-              <p className="text-lg">「{quiz.secondThing}」と解く</p>
+              <p className="text-lg mb-2" style={{ fontFamily: '"MS 明朝", serif' }}>「{quiz.firstThing}」とかけまして</p>
+              <p className="text-lg" style={{ fontFamily: '"MS 明朝", serif' }}>「{quiz.secondThing}」と解く</p>
             </>
           ) : (
-            <p className="text-lg">その心はどちらも「{quiz.answer}」でしょう</p>
+            <p className="text-lg" style={{ fontFamily: '"MS 明朝", serif' }}>その心はどちらも「{quiz.answer}」でしょう</p>
           )}
         </div>
         
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="answer" className="block mb-2 font-medium">
+          <div className="mb-6">
+            <label htmlFor="answer" className="block mb-3 font-medium border-l-4 border-accent-green pl-3">
               {mode === "organized" 
                 ? "その心はどちらも...？" 
                 : "何とかけて何と解く？"}
@@ -76,7 +78,7 @@ export default function QuizClient({ quiz, quizId }: QuizClientProps) {
               type="text"
               value={userAnswer}
               onChange={(e) => setUserAnswer(e.target.value)}
-              className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800"
+              className="w-full p-3 border border-card-border japanese-border bg-card-bg"
               placeholder={mode === "organized" 
                 ? "「〇〇〇」でしょう" 
                 : "「〇〇〇」とかけて「〇〇〇」と解く"}
@@ -86,7 +88,8 @@ export default function QuizClient({ quiz, quizId }: QuizClientProps) {
           
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+            className="w-full retro-button py-3 px-6 rounded-sm font-medium mt-4"
+            style={{ fontFamily: '"HG行書体", "MS 明朝", serif' }}
           >
             回答する
           </button>

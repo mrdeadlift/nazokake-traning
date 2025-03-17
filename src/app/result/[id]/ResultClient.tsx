@@ -17,11 +17,11 @@ export default function ResultClient({ quiz, quizId }: ResultClientProps) {
   if (!quiz) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen p-8">
-        <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full text-center">
-          <h1 className="text-2xl font-bold mb-4">クイズが見つかりません</h1>
+        <div className="washi-pattern japanese-border p-8 max-w-md w-full text-center">
+          <h1 className="text-2xl font-bold mb-4" style={{ fontFamily: '"HG行書体", "MS 明朝", serif' }}>クイズが見つかりません</h1>
           <Link 
             href="/"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors"
+            className="retro-button py-2 px-4 rounded-sm inline-block"
           >
             ホームに戻る
           </Link>
@@ -35,41 +35,43 @@ export default function ResultClient({ quiz, quizId }: ResultClientProps) {
     : userAnswer.includes(quiz.firstThing) && userAnswer.includes(quiz.secondThing);
   
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-8 bg-gray-50 dark:bg-gray-900">
-      <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full">
+    <div className="flex flex-col items-center justify-center min-h-screen p-8">
+      <div className="washi-pattern japanese-border p-8 max-w-md w-full">
         <Link 
           href="/"
-          className="inline-block mb-6 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+          className="inline-block mb-6 text-accent-blue hover:underline"
         >
           ← ホームに戻る
         </Link>
 
-        <h1 className="text-2xl font-bold mb-6 text-center">
+        <div className="w-16 h-1 bg-accent-red mx-auto mb-6"></div>
+        <h1 className="text-2xl font-bold mb-6 text-center" style={{ fontFamily: '"HG行書体", "MS 明朝", serif' }}>
           {isCorrect ? "正解！" : "不正解..."}
         </h1>
+        <div className="w-16 h-1 bg-accent-red mx-auto mb-6"></div>
         
         <div className="mb-6">
-          <h2 className="font-bold mb-2">あなたの回答：</h2>
-          <p className="p-3 bg-gray-100 dark:bg-gray-700 rounded">{userAnswer}</p>
+          <h2 className="font-bold mb-2 border-l-4 border-accent-blue pl-3">あなたの回答：</h2>
+          <p className="p-3 bg-opacity-10 bg-accent-blue japanese-border">{userAnswer}</p>
         </div>
         
         <div className="mb-8">
-          <h2 className="font-bold mb-2">正解：</h2>
-          <div className="p-4 bg-green-50 dark:bg-green-900/30 rounded-lg border border-green-200 dark:border-green-900">
+          <h2 className="font-bold mb-2 border-l-4 border-accent-green pl-3">正解：</h2>
+          <div className="p-4 bg-opacity-10 bg-accent-green japanese-border">
             {mode === "organized" ? (
-              <p>その心はどちらも「{quiz.answer}」でしょう</p>
+              <p style={{ fontFamily: '"MS 明朝", serif' }}>その心はどちらも「{quiz.answer}」でしょう</p>
             ) : (
               <>
-                <p className="mb-1">「{quiz.firstThing}」とかけまして</p>
-                <p>「{quiz.secondThing}」と解く</p>
+                <p className="mb-1" style={{ fontFamily: '"MS 明朝", serif' }}>「{quiz.firstThing}」とかけまして</p>
+                <p style={{ fontFamily: '"MS 明朝", serif' }}>「{quiz.secondThing}」と解く</p>
               </>
             )}
           </div>
         </div>
         
-        <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-900">
-          <h2 className="font-bold mb-2">解説：</h2>
-          <p>
+        <div className="mb-8 p-4 bg-opacity-10 bg-accent-yellow japanese-border">
+          <h2 className="font-bold mb-3 border-l-4 border-accent-yellow pl-3">解説：</h2>
+          <p style={{ fontFamily: '"MS 明朝", serif' }}>
             「{quiz.firstThing}」と「{quiz.secondThing}」は、
             どちらも「{quiz.answer}」という共通点があります。
           </p>
@@ -78,14 +80,15 @@ export default function ResultClient({ quiz, quizId }: ResultClientProps) {
         <div className="flex gap-4">
           <Link 
             href="/"
-            className="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition-colors text-center"
+            className="flex-1 retro-button retro-button-secondary py-3 px-4 rounded-sm text-center"
           >
             ホームに戻る
           </Link>
           
           <Link 
             href={`/quiz/${getRandomQuizId(quizId)}?mode=${mode}`}
-            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors text-center"
+            className="flex-1 retro-button py-3 px-4 rounded-sm text-center"
+            style={{ fontFamily: '"HG行書体", "MS 明朝", serif' }}
           >
             次のクイズ
           </Link>
