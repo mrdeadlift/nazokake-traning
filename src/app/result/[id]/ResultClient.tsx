@@ -80,7 +80,7 @@ function getRandomQuizId(currentId: string): string {
   return randomQuiz.id;
 }
 
-export default function ResultClient({ params }: { params: { id: string } }) {
+export default function ResultClient({ quizId }: { quizId: string }) {
   const [quiz, setQuiz] = useState<NazokakeQuiz | null>(null);
   const [answer, setAnswer] = useState<string>('');
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
@@ -113,7 +113,7 @@ export default function ResultClient({ params }: { params: { id: string } }) {
 
   useEffect(() => {
     try {
-      const quizData = getQuizById(params.id);
+      const quizData = getQuizById(quizId);
       if (quizData) {
         setQuiz(quizData);
       } else {
@@ -124,11 +124,11 @@ export default function ResultClient({ params }: { params: { id: string } }) {
       console.error('Error fetching quiz:', error);
       router.push('/');
     }
-  }, [params.id, router]);
+  }, [quizId, router]);
 
   useEffect(() => {
     // ローカルストレージから回答を取得
-    const savedAnswer = localStorage.getItem(`answer-${params.id}`);
+    const savedAnswer = localStorage.getItem(`answer-${quizId}`);
     if (savedAnswer) {
       setAnswer(savedAnswer);
       if (quiz) {
@@ -137,7 +137,7 @@ export default function ResultClient({ params }: { params: { id: string } }) {
         setScore(calculateScore(savedAnswer, quiz.answer));
       }
     }
-  }, [params.id, quiz]);
+  }, [quizId, quiz]);
 
   if (!quiz) {
     return <div className="container mx-auto p-4">Loading...</div>;
@@ -196,7 +196,7 @@ export default function ResultClient({ params }: { params: { id: string } }) {
             ホームに戻る
           </button>
           <button 
-            onClick={() => router.push(`/quiz/${getRandomQuizId(params.id)}`)} 
+            onClick={() => router.push(`/quiz/${getRandomQuizId(quizId)}`)} 
             className="retro-button bg-blue-800 hover:bg-blue-700 text-white py-2 px-6 focus:outline-none focus:shadow-outline"
           >
             別の問題に挑戦
