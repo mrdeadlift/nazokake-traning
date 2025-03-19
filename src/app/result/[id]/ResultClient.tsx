@@ -84,7 +84,32 @@ export default function ResultClient({ params }: { params: { id: string } }) {
   const [quiz, setQuiz] = useState<NazokakeQuiz | null>(null);
   const [answer, setAnswer] = useState<string>('');
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [score, setScore] = useState<number>(0);
   const router = useRouter();
+
+  // 正解率を計算する関数
+  const calculateScore = (userAnswer: string, correctAnswer: string): number => {
+    if (userAnswer.trim() === correctAnswer.trim()) {
+      return 100; // 完全一致なら100点
+    }
+    
+    // ユーザーの回答と正解の文字単位での比較
+    const userChars = userAnswer.trim().split('');
+    const correctChars = correctAnswer.trim().split('');
+    
+    // 正解の文字数に対する正解文字の割合を計算
+    let correctCount = 0;
+    const maxLength = Math.max(userChars.length, correctChars.length);
+    
+    for (let i = 0; i < maxLength; i++) {
+      if (i < userChars.length && i < correctChars.length && userChars[i] === correctChars[i]) {
+        correctCount++;
+      }
+    }
+    
+    // 正解率を0〜100の範囲で返す
+    return Math.round((correctCount / correctChars.length) * 100);
+  };
 
   useEffect(() => {
     try {
@@ -107,7 +132,9 @@ export default function ResultClient({ params }: { params: { id: string } }) {
     if (savedAnswer) {
       setAnswer(savedAnswer);
       if (quiz) {
-        setIsCorrect(savedAnswer.trim() === quiz.answer.trim());
+        const isExactMatch = savedAnswer.trim() === quiz.answer.trim();
+        setIsCorrect(isExactMatch);
+        setScore(calculateScore(savedAnswer, quiz.answer));
       }
     }
   }, [params.id, quiz]);
@@ -145,14 +172,18 @@ export default function ResultClient({ params }: { params: { id: string } }) {
         </div>
 
         {isCorrect !== null && (
-          <div className={`mb-8 p-4 rounded-lg ${isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+          <div className={`mb-8 p-4 rounded-lg ${score >= 80 ? 'bg-green-100 text-green-800' : score >= 50 ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800'}`}>
             <h2 className="text-xl font-bold mb-2 font-['MS_Pゴシック', 'sans-serif']">
-              {isCorrect ? '正解です！おめでとうございます！' : '残念！不正解です。'}
+              得点：{score}点
             </h2>
             <p>
-              {isCorrect 
-                ? 'あなたはなぞかけの達人です！' 
-                : `正解は「${quiz.answer}」でした。また挑戦してみてください！`}
+              {score === 100 
+                ? '完璧な回答です！あなたはなぞかけの達人です！' 
+                : score >= 80
+                  ? 'かなり惜しい！あと少しで完璧です！'
+                  : score >= 50
+                    ? '正解に近づいています！もう一度挑戦してみましょう！'
+                    : `正解は「${quiz.answer}」でした。また挑戦してみてください！`}
             </p>
           </div>
         )}
